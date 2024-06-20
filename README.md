@@ -1,46 +1,103 @@
-# How to use
+# Wasteless
 
-## Login
+Wasteless is a project which contains tools to predict and reduce waste in foodservice.
 
-Application requires authentication to use. This is something that is setup by the Admin as the users has to be assigned
-to a specific location. Admin-user has a link `Lisää käyttäjä` in which a new user can be created.
+## Getting Started
 
-Application automatically navigates to login if the user is not authenticated. After login user is redirected to main
-page.
+### Dependencies
 
-## Main page
+  - .NET 5 and .NET Core 3.1
+  - Python 3
+  - Sql Server
 
-On load the main page shows the current week's predictions.
+### Installing
 
-The predictions contains the following attributes:
+  - Setup the database either by using the [backup-file](Data/DBBackup/WastelessDemo.bak) or the
+    [database-project](Data/DB/)
 
-  - Date of the prediction
-  - Menu for the day (user can select another menu if the prefetched menu is not correct)
-  - Predictions:
-      - Number of diners
-      - Total waste in kg
-      - Line waste in kg
-      - Plate waste in kg
-      - Production waste in kg
-  - Production:
-      - An input field for how many diners food has been prepared for
-  - Actual input fields
-      - Number of all diners
-      - Number of diners with special diet
-      - Line waste in kg
-      - Plate waste in kg
-      - Production waste in kg
-      - Optional comment (this is required if the waste is greater than the configured maximum)
+  - Set the connection string `DefaultConnection` in project Web
+    
+    Now you should be able to run the Web-app part of the application.
+    
+    To be able to get new predictions you need to setup some functionality through Azure Functions. Read more
+    [here](#AzureFunctions).
 
-After modifying any of the fields the user can save the form. Saved fields are used to calculate new predictions.
+### Executing program
 
-### Selecting week and location
+  - Cd into `Web/Wasteless` folder
+  - Restore `dotnet tools`
 
-By default predictions are fetched for the current week and users first location. These can be changed by accessing the
-inputs before predictions. Date selection always selects the whole week. Location list is populated with locations which
-user has access to.
+<!-- end list -->
 
-## Report
+``` sh
+dotnet tool restore
+```
 
-For further analyze there's a link `Raportti` where user has access to `PowerBI` -report based on the inputted waste
-amounts.
+  - Run the migrations
+
+<!-- end list -->
+
+``` sh
+dotnet ef database update
+```
+
+  - Run the app
+
+<!-- end list -->
+
+``` sh
+dotnet run
+```
+
+## Directory Contents
+
+### AzureFunctions
+
+This folder contains three [Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview):
+
+  - DatabaseUpdaters - PredictionsUpdate (C\#)
+  - DatabaseUpdaters - WeatherInfoUpdate (C\#)
+  - PredictionsApi (Python)
+
+PredictionsApi is an HTTP trigger. It returns a prediction of waste by given date.
+
+DatabaseUpdaters are scheduled functions which update the underlying database used by the Web UI and PredictionsApi.
+
+PredictionsUpdate update the prediction by calling the the
+PredictionsApi.  
+WeatherInfoUpdate updates weather which is used by the PredictionsApi.
+
+### Data
+
+1.  Db
+    
+    This is a Sql Server Database Project which contains everything used by the PredictionsApi and Web UI.
+
+2.  DbBackup
+    
+    This contains a Sql Server backup -file which you can use to initialize the database.
+
+3.  ETL
+    
+    This contains Sql Server Integration Services -project used to load the database with existing data.
+
+4.  PowerBI
+    
+    This contains the PowerBI -report which is embedded in the Web UI.
+
+5.  TestData
+    
+    This contains Excel-files which you can use in combination with SSIS -project.
+
+### Web
+
+This is the Web-project used to display predictions and to feed new waste amounts for the predictions. It's a .NET 5.0
+C# backend with a React frontend.
+
+#### How to use
+
+Documentation on how to use the application can be found [here](./Web/README.md)
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details
