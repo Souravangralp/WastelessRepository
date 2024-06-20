@@ -101,3 +101,31 @@ Documentation on how to use the application can be found [here](./Web/README.md)
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details
+
+
+## Mukesh
+ - Firstly go to the "~\Web\Wasteless\ClientApp" and open in a editor as VS code.
+ - Add missing  package by running "npm install rimraf"
+ - Run the project with "npm run start"
+
+ - Goto Visual Studio, open the folder cloned from github.
+ - From the folder structure, go to "Web" and open the solution (.sln file) in it.
+ - Add the following packages from the Nuget
+
+ ``` 
+ Download dotnet package 6.0.200 (defined in global.json)
+ <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.0" />
+ <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.0" />
+ <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.0" />
+ <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
+ <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
+
+ <PackageReference Include="Microsoft.EntityFrameworkCore.Relational.Design" Version="1.1.6" />
+ <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
+ <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">
+ <PackageReference Include="Microsoft.Identity.Web" Version="1.20.0" />
+ <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.10.0" />
+
+ ```
+
+ Run the project after changing the localhost url same as the UI localhost URL.
