@@ -8,13 +8,16 @@ import {Weeks} from "./Weeks";
 const Waste = () => {
     
     const [dates, setDates] = useState([]);
-    const [locationId, setLocationId] = useState(undefined);
+    const [locationId, setLocationId] = useState('1');
 
     function handleLocationChange(location) {
+        console.log('location: ', location);
         setLocationId(location);
     }
 
     function handleWeekChange(date) {
+        console.log('location: ', locationId);
+        console.log('date: ', date);
         setDates(date);
     }
 

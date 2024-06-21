@@ -17,7 +17,7 @@ export const b2cPolicies = {
 
 export const msalConfig = {
     auth: {
-        clientId: "8476fc31-8782-4304-b37d-a4553247d26e", // This is the ONLY mandatory field that you need to supply.
+        clientId: "1d6cc04c-5949-46b1-9c23-f30c64b448c4", // This is the ONLY mandatory field that you need to supply.
         authority: b2cPolicies.authorities.signUpSignIn.authority, 
         knownAuthorities: [b2cPolicies.authorityDomain], 
         redirectUri: "https://localhost:5001/", 

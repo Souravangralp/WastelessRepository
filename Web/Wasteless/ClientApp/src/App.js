@@ -46,9 +46,7 @@ const Pages = () => {
                 }
             });
         }
-    }, [
-        inProgress, accounts, instance, accessToken, setAccessToken, account
-    ]);
+    }, [inProgress, accounts, instance, accessToken, setAccessToken, account]);
 
 
     /**
@@ -96,9 +94,7 @@ const Pages = () => {
                 instance.removeEventCallback(callbackId);
             }
         };
-    }, [
-        instance
-    ]);
+    }, [instance]);
 
     return (
         <Switch>
@@ -108,9 +104,9 @@ const Pages = () => {
                 </ProtectedContent>
             </Route>
             <Route path="/report">
-                {/* <ProtectedContent> */}
+                <ProtectedContent>
                     <Report/>
-                {/* </ProtectedContent> */}
+                </ProtectedContent>
             </Route>
         </Switch>
     )
@@ -119,11 +115,11 @@ const Pages = () => {
 const App = ({instance}) => {
     return (
         <Router>
-            {/* <MsalProvider instance={instance}> */}
+            <MsalProvider instance={instance}>
                 <Layout>
                     <Pages/>
                 </Layout>
-            {/* </MsalProvider> */}
+            </MsalProvider>
         </Router>
     );
 }
